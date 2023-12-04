@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,29 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular';
+
+
+  msg:string="Welcome to Angular"
+
+  constructor( @Inject (HttpClient) private httpClient:HttpClient){}
+
+getWelcomeMsg(){
+
+ // this.msg="Welcome to angular welcome msg";
+
+ this.httpClient.get("http://localhost:9090/welcome",{responseType:"text"})
+ .subscribe(response => {
+
+  this.msg= response;
+ });
 }
+
+ getWishMsg(){
+ this.httpClient.get("http://localhost:9090/wish",{responseType:"text"})
+ .subscribe(response => {
+
+  this.msg= response;
+ });
+ }
+}
+
